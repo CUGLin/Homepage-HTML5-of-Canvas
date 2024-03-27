@@ -1,7 +1,7 @@
 # Homepage&HTML5ofCanvas
-There is a front-end web design that includes a personal homepage and some Canvas-based html5 development;
-There are zip files in the library, you can download them directly;
-Of course, the corresponding code is also available in the main branch for you to view on request.
+- There is a front-end web design that includes a personal homepage and some Canvas-based html5 development;
+- There are zip files in the library, you can download them directly;
+- Of course, the corresponding code is also available in the main branch for you to view on request.
 
 ## This is the interface to the main program
 ![image](https://github.com/CUGLin/Homepage-HTML-5-of-Canvas/assets/122336135/884773df-00d4-4aa4-b162-52cdbb77c62f)
