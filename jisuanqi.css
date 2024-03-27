@@ -1,0 +1,39 @@
+#calculator {  
+    width: 200px;  
+    border: 1px solid #ccc;  
+    border-radius: 5px;  
+    padding: 10px;  
+    margin: 20px;  
+  }  
+    
+  #display {  
+    width: 100%;  
+    text-align: right;  
+    font-size: 18px;  
+    margin-bottom: 10px;  
+  }  
+    
+  #buttons {  
+    display: grid;  
+    grid-template-columns: repeat(4, 1fr); 
+    /*定义了一个网格容器，该容器有四列，每列都占据相等的空间（即1个分数单位，或1fr）。*/ 
+    grid-gap: 5px;  
+  }  
+    
+  button {  
+    width: 45px;  
+    height: 45px;  
+    font-size: 16px;  
+    border: none;  
+    border-radius: 5px;  
+    background-color: #f0f0f0;  
+    cursor: pointer;  
+  }  
+    
+  button:hover {  
+    background-color: #e0e0e0;  
+  }  
+    
+  .operator, .function {  
+    background-color: #ddd;  
+  }

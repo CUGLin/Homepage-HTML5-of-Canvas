@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>son and earth</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        #canvas-container {
+            width: 90%; /* Adjust the width of the container as needed */
+            height: 90vh; /* Adjust the height of the container as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="myCanvas"></canvas>
+    </div>
+
+    <script>
+        // Get the canvas element
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Define the sun, earth, and moon properties
+        var sun = { x: canvas.width / 2, y: canvas.height / 2, radius: 50, color: "#FFD700" };
+        var earth = { angle: 0, distance: 400, radius: 15, color: "#4682B4" };
+        var moon = { angle: 0, distance: 100, radius: 5, color: "#D3D3D3" };
+
+        // Animation function
+        function draw() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw sun
+            ctx.beginPath();
+            ctx.arc(sun.x, sun.y, sun.radius, 0, Math.PI * 2);
+            ctx.fillStyle = sun.color;
+            ctx.fill();
+            ctx.closePath();
+
+            // Draw earth orbit path
+            ctx.beginPath();
+            ctx.arc(sun.x, sun.y, earth.distance, 0, Math.PI * 2);
+            ctx.strokeStyle = "#4682B4"; // Earth orbit color
+            ctx.stroke();
+            ctx.closePath();
+
+            // Calculate earth position
+            var earthX = sun.x + earth.distance * Math.cos(earth.angle);
+            var earthY = sun.y + earth.distance * Math.sin(earth.angle);
+
+            // Draw earth
+            ctx.beginPath();
+            ctx.arc(earthX, earthY, earth.radius, 0, Math.PI * 2);
+            ctx.fillStyle = earth.color;
+            ctx.fill();
+            ctx.closePath();
+
+            // Draw moon orbit path
+            ctx.beginPath();
+            ctx.arc(earthX, earthY, moon.distance, 0, Math.PI * 2);
+            ctx.strokeStyle = "#D3D3D3"; // Moon orbit color
+            ctx.stroke();
+            ctx.closePath();
+
+            // Calculate moon position
+            var moonX = earthX + moon.distance * Math.cos(moon.angle);
+            var moonY = earthY + moon.distance * Math.sin(moon.angle);
+
+            // Draw moon
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, moon.radius, 0, Math.PI * 2);
+            ctx.fillStyle = moon.color;
+            ctx.fill();
+            ctx.closePath();
+
+            // Update angles for next frame
+            earth.angle += 0.005;
+            moon.angle += 0.03;
+
+            // Request next animation frame
+            requestAnimationFrame(draw);
+        }
+
+        // Start animation
+        draw();
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Clock</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        #clockContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 2em;
+        }
+
+        #digitalClockContainer {
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+
+        canvas {
+            background-color: #000;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="clockContainer">
+        <canvas id="clockCanvas" width="300" height="300"></canvas>
+        <div id="digitalClockContainer">
+            北京时间：<span id="digitalClock"></span>
+        </div>
+    </div>
+
+    <script>
+        // Get the canvas element
+        var canvas = document.getElementById("clockCanvas");
+        var ctx = canvas.getContext("2d");
+        var radius = canvas.width / 2;
+
+        // Digital clock element
+        var digitalClock = document.getElementById("digitalClock");
+
+        // Draw clock
+        function drawClock() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawFace();
+            drawNumbers();
+            drawTime();
+            updateDigitalClock();
+        }
+
+        // Draw clock face
+        function drawFace() {
+            ctx.beginPath();
+            ctx.arc(radius, radius, radius * 0.9, 0, 2 * Math.PI);
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(radius, radius, radius * 0.9, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Draw clock numbers
+        function drawNumbers() {
+            var angle;
+            var number;
+            ctx.font = radius * 0.15 + "px Arial";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "center";
+            for (number = 1; number <= 12; number++) {
+                angle = number * Math.PI / 6;
+                ctx.rotate(angle);
+                ctx.translate(0, -radius * 0.8);
+                ctx.rotate(-angle);
+                ctx.fillText(number.toString(), radius, radius);
+                ctx.rotate(angle);
+                ctx.translate(0, radius * 0.8);
+                ctx.rotate(-angle);
+            }
+        }
+
+        // Draw clock hands
+        function drawTime() {
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+
+            // Hour hand
+            hour = hour % 12;
+            hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60));
+            drawHand(hour, radius * 0.5, radius * 0.07);
+
+            // Minute hand
+            minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+            drawHand(minute, radius * 0.7, radius * 0.05);
+
+            // Second hand
+            second = (second * Math.PI / 30);
+            drawHand(second, radius * 0.8, radius * 0.02, "#FF0000");
+        }
+
+        // Draw clock hand
+        function drawHand(pos, length, width, color = "#000") {
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.moveTo(radius, radius);
+            ctx.lineTo(radius + length * Math.sin(pos), radius - length * Math.cos(pos));
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        // Update digital clock
+        function updateDigitalClock() {
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            digitalClock.textContent = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}:${second < 10 ? '0' + second : second}`;
+        }
+
+        // Update clock every second
+        setInterval(drawClock, 1000);
+
+        // Initial draw
+        drawClock();
+    </script>
+</body>
+</html>

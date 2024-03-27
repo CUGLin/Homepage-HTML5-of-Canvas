@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            background-color: #000;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        // Get the canvas element
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // Set canvas size dynamically
+        canvas.width = window.innerWidth; // Adjust canvas width to fill the entire window
+        canvas.height = window.innerHeight; // Adjust canvas height to fill the entire window
+
+        // Define sun properties
+        var sun = { x: canvas.width / 2, y: canvas.height / 2, radius: 50, color: "#FFD700" };
+
+        // Define planet properties
+        var planets = [
+            { name: "Mercury", distance: 100, radius: 2, speed: 0.0003, color: "#A9A9A9" },
+            { name: "Venus", distance: 150, radius: 4, speed: 0.0002, color: "#FFD700" },
+            { name: "Earth", distance: 200, radius: 5, speed: 0.00015, color: "#4682B4" },
+            { name: "Mars", distance: 250, radius: 4, speed: 0.0001, color: "#FF6347" },
+            { name: "Jupiter", distance: 350, radius: 15, speed: 0.00005, color: "#FF4500" },
+            { name: "Saturn", distance: 450, radius: 12, speed: 0.00004, color: "#FFD700" },
+            { name: "Uranus", distance: 550, radius: 8, speed: 0.00003, color: "#ADD8E6" },
+            { name: "Neptune", distance: 650, radius: 7, speed: 0.00002, color: "#4169E1" }
+        ];
+
+        // Animation function
+        function draw() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw sun
+            ctx.beginPath();
+            ctx.arc(sun.x, sun.y, sun.radius, 0, Math.PI * 2);
+            ctx.fillStyle = sun.color;
+            ctx.fill();
+            ctx.closePath();
+
+            // Draw planet orbits
+            for (var i = 0; i < planets.length; i++) {
+                var planet = planets[i];
+                ctx.beginPath();
+                ctx.arc(sun.x, sun.y, planet.distance, 0, Math.PI * 2);
+                ctx.strokeStyle = "#444"; // Orbit color
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            // Draw planets
+            for (var i = 0; i < planets.length; i++) {
+                var planet = planets[i];
+                var angle = planet.speed * Date.now();
+                var x = sun.x + planet.distance * Math.cos(angle);
+                var y = sun.y + planet.distance * Math.sin(angle);
+
+                // Draw planet
+                ctx.beginPath();
+                ctx.arc(x, y, planet.radius, 0, Math.PI * 2);
+                ctx.fillStyle = planet.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            // Request next animation frame
+            requestAnimationFrame(draw);
+        }
+
+        // Start animation
+        draw();
+
+        // Redraw canvas on window resize
+        window.addEventListener('resize', function(){
+            canvas.width = window.innerWidth; // Adjust canvas width to fill the entire window
+            canvas.height = window.innerHeight; // Adjust canvas height to fill the entire window
+            draw();
+        });
+    </script>
+</body>
+</html>
