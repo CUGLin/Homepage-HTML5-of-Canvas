@@ -13,4 +13,4 @@
 ## This is the program translation
 ![image](https://github.com/CUGLin/Homepage-HTML-5-of-Canvas/assets/122336135/09b8fd96-4e26-40e7-9f85-a1fb7ffdf3ac)
 
-### In order to adapt (in fact, in order to play cool), so the English version is used here, there is a need to find the internship file in zip.
+### In order to adapt (in fact, use English just for cool), so the English version is used here, there is a need to find the internship file in zip.
