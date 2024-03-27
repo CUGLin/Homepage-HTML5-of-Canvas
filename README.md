@@ -1,4 +1,4 @@
-# Homepage&HTML5ofCanvas
+# Homepage&HTML5 of Canvas
 - There is a front-end web design that includes a personal homepage and some Canvas-based html5 development;
 - There are zip files in the library, you can download them directly;
 - Of course, the corresponding code is also available in the main branch for you to view on request.
